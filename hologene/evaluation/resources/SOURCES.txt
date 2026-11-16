@@ -1,0 +1,6 @@
+celltalkdb_mouse_lr_pairs.tsv
+    Mouse ligand-receptor pairs from CellTalkDB v1.0, used by the CCC metrics.
+    Source: https://github.com/ZJUFanLab/CellTalkDB (GPL-3.0)
+    Citation: Shao X. et al. CellTalkDB: a manually curated database of
+    ligand-receptor interactions in humans and mice. Briefings in
+    Bioinformatics 22(4), bbaa269 (2021). doi:10.1093/bib/bbaa269

@@ -1,0 +1,24 @@
+# MOSTA E16.5, stride k=4 (every 4-th section observed), training seed 7849 (Tables 10/11).
+data:
+  h5ad: data/mosta/E16.5_10percent_noCavity_coor_leiden_hologene_full_top3000.h5ad
+  signature_key: leiden
+  subsample_fraction: 0.5
+  subsample_seed: 8848
+  n_top_genes: 3000
+  keep_ratio: true
+  split: stride
+  stride: 4
+  n_neighbors: 5
+
+gae:
+  hidden_dims: [2048, 512]
+  latent_dim: 64
+  in_logarithm: false
+
+training:
+  seed: 7849
+  epochs: 200
+  batch_size: 512
+  lr: 0.00001
+
+output_dir: outputs/mosta/table10_stride/k4_seed7849/gae

@@ -1,0 +1,25 @@
+# MOSTA E16.5, 30% of sections held out, split seed 8849 (Table 12).
+data:
+  h5ad: data/mosta/E16.5_10percent_noCavity_coor_leiden_hologene_full_top3000.h5ad
+  signature_key: leiden
+  subsample_fraction: 0.5
+  subsample_seed: 8848
+  n_top_genes: 3000
+  keep_ratio: true
+  split: random
+  test_fraction: 0.3
+  split_seed: 8849
+  n_neighbors: 5
+
+gae:
+  hidden_dims: [2048, 512]
+  latent_dim: 64
+  in_logarithm: false
+
+training:
+  seed: 8848
+  epochs: 200
+  batch_size: 512
+  lr: 0.00001
+
+output_dir: outputs/mosta/table12_partitions/heldout30_split8849/gae

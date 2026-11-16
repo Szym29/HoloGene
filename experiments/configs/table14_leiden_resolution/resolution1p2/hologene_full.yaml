@@ -1,0 +1,41 @@
+# MOSTA E16.5, Leiden resolution 1.2 pseudo-labels (Table 14).
+data:
+  h5ad: data/mosta/E16.5_10percent_noCavity_coor_leiden_resolutions_top3000.h5ad
+  signature_key: leiden_res1p2
+  subsample_fraction: 0.5
+  subsample_seed: 8848
+  n_top_genes: 3000
+  keep_ratio: true
+  split: random
+  test_fraction: 0.2
+  split_seed: 8848
+  n_neighbors: 5
+
+gae:
+  checkpoint: outputs/mosta/split_8to2/gae/gae.pt
+
+model:
+  variant: full
+  hidden_dim: 256
+  num_layers: 5
+  fourier_scale: 1.0
+  fourier_mapping_size: 256
+  signature_emb_dim: 16
+  signature_film_weight: 0.02
+
+training:
+  seed: 8848
+  epochs: 200
+  warmup_epochs: 100
+  batch_size: 8096
+  lr: 0.0005
+  psn_head_lr_multiplier: 0.2
+  w_gex_start: 0.05
+  w_gex_end: 2.0
+  gex_ramp_epochs: 100
+  w_psn: 0.001
+  w_coral: 0.1
+  coral_min_n: 16
+  val_freq: 100
+
+output_dir: outputs/mosta/table14_leiden_resolution/resolution1p2/hologene_full

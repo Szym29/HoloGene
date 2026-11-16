@@ -1,0 +1,41 @@
+# HoloGene on MOSTA E16.5 -- default 8:2 slice split (paper Tables 1-2).
+# Paths are relative to the repository root.
+
+data:
+  h5ad: data/mosta/E16.5_10percent_noCavity_coor_leiden_hologene_full_top3000.h5ad
+  signature_key: leiden        # pseudo-label column used for PSN supervision and CORAL grouping
+  subsample_fraction: 0.5      # fraction of spots used
+  n_top_genes: 3000            # HVG selection is skipped when the file already has 3000 genes
+  keep_ratio: true             # keep the aspect ratio when normalising coordinates to [-1, 1]
+  test_fraction: 0.2           # fraction of slices held out (8:2 split)
+  split_seed: 8848             # random_state of the slice-wise train/test split
+  n_neighbors: 5               # spatial kNN (incl. self) for the GAE graph
+
+gae:
+  checkpoint: outputs/mosta/split_8to2/gae/gae.pt   # produced by pretrain_gae.py (configs/gae.yaml)
+
+model:
+  variant: full                # full | film_psn | film_coral | film | xyz
+  hidden_dim: 256
+  num_layers: 5
+  fourier_scale: 1.0           # std of the Gaussian Fourier matrix B
+  fourier_mapping_size: 256
+  signature_emb_dim: 16
+  signature_film_weight: 0.02  # weight of the PSN-signature FiLM branch (times sigmoid(alpha))
+
+training:
+  seed: 8848
+  epochs: 200
+  warmup_epochs: 100           # GAE decoder frozen during warm-up, fine-tuned afterwards
+  batch_size: 8096
+  lr: 0.0005
+  psn_head_lr_multiplier: 0.2  # PSN classifier head LR = 0.0001
+  w_gex_start: 0.05            # expression-loss weight during warm-up ...
+  w_gex_end: 2.0               # ... ramped linearly to this value
+  gex_ramp_epochs: 100
+  w_psn: 0.001                 # PSN cross-entropy weight
+  w_coral: 0.1                 # signature-stratified CORAL weight
+  coral_min_n: 16              # min spots per (signature, slice) group in a mini-batch
+  val_freq: 100                # held-out logging interval
+
+output_dir: outputs/mosta/split_8to2/hologene_full

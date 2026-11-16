@@ -1,0 +1,10 @@
+name: hologene
+channels:
+  - conda-forge
+dependencies:
+  - python=3.12
+  - pip
+  - pip:
+      - --extra-index-url https://download.pytorch.org/whl/cu130
+      - torch==2.11.0
+      - -r requirements.txt

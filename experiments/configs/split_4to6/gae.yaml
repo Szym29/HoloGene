@@ -1,0 +1,23 @@
+# GAE pretraining, MOSTA E16.5, 4:6 train:test slice split (training slices only).
+data:
+  h5ad: data/mosta/E16.5_10percent_noCavity_coor_leiden_hologene_full_top3000.h5ad
+  signature_key: leiden
+  subsample_fraction: 0.5
+  n_top_genes: 3000
+  keep_ratio: true
+  test_fraction: 0.6
+  split_seed: 8848
+  n_neighbors: 5
+
+gae:
+  hidden_dims: [2048, 512]
+  latent_dim: 64
+  in_logarithm: false
+
+training:
+  seed: 8848
+  epochs: 200
+  batch_size: 512
+  lr: 0.00001
+
+output_dir: outputs/mosta/split_4to6/gae
